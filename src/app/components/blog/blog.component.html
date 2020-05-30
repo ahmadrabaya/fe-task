@@ -1,0 +1,117 @@
+<div class="row mb-5" *ngIf="blog">
+  <div class="col-12">
+    <div class="d-flex flex-column align-items-center">
+      <div class="blog-wrapper">
+        <div
+          class="d-flex align-items-center justify-content-between pt-3 pb-3"
+        >
+          <div class="d-flex align-items-center">
+            <img
+              class="rounded-circle avatar mr-3"
+              [src]="blog.user.avatar"
+              alt=""
+            />
+            <h4 class="mb-0">{{ blog.user.name }}</h4>
+          </div>
+          <i
+            class="fa fa-trash text-secondary float-right m-1 pointer"
+            *ngIf="isLoggedIn && blog.user._id === user?._id"
+            (click)="deleteBlog(blog._id)"
+          ></i>
+        </div>
+        <img class="blog-image" [src]="blog.blogImage" alt="" />
+        <div class="d-flex justify-content-between align-items-center pt-2">
+          <span>{{ blog.createdAt }}</span>
+          <span>
+            <!-- <span class="mr-3"><i class="fa fa-comment mr-1"></i>3</span> -->
+            <span
+              ><i
+                class="fa fa-heart mr-1 pointer"
+                [ngClass]="blog.isLiked && 'active'"
+                (click)="handleLike(!blog.isLiked)"
+              ></i
+              >{{ blog.likesCount }}</span
+            >
+          </span>
+        </div>
+        <div
+          class="description pt-2"
+          [ngClass]="{ 'short-desc': isList }"
+          [innerHTML]="blog.description"
+        ></div>
+        <div class="mt-2" *ngIf="tags.length > 0 && !isList">
+          <div class="font-weight-bold">Tags:</div>
+          <span class="tag" *ngFor="let tag of tags">
+            {{ tag }}
+          </span>
+        </div>
+        <div>
+          <a class="mt-1" routerLink="/blog/{{ blog._id }}" *ngIf="isList"
+            >See More</a
+          >
+        </div>
+        <div class="comments-wrapper mt-5 bg-light" *ngIf="!isList">
+          <h4>Comments</h4>
+          <div
+            class="d-flex justify-content-center align-items-center font-weight-bold"
+            *ngIf="comments.length === 0"
+          >
+            There is no comments
+          </div>
+          <div
+            class="comment d-flex flex-column p-2 mb-2"
+            *ngFor="let comment of comments"
+          >
+            <div>
+              <img
+                class="rounded-circle comment-avatar mr-2"
+                [src]="comment.user.avatar"
+                alt=""
+              />
+              <span class="font-weight-bold">{{ comment.user.name }}</span>
+              <i
+                class="fa fa-trash text-secondary float-right m-1 pointer"
+                *ngIf="isLoggedIn && comment.user._id === user?._id"
+                (click)="deleteComment(comment._id)"
+              ></i>
+            </div>
+            <div class="ml-3 mt-2">{{ comment.comment }}</div>
+          </div>
+          <div *ngIf="isLoggedIn">
+            <h5 class="mt-4">Add comment</h5>
+            <form
+              class="new-blog-form"
+              [formGroup]="commentForm"
+              (ngSubmit)="addComment()"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Comment"
+                  formControlName="comment"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCommentFormSubmitted &&
+                      commentFormControls.comment.errors
+                  }"
+                  required
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="submit"
+                    [ngClass]="isLoading && 'loading'"
+                    [disabled]="isLoading"
+                  >
+                    Comment
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

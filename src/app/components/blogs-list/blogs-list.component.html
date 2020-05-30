@@ -1,0 +1,20 @@
+<div class="row" *ngIf="blogsList.length <= 0 && !isLoading">
+  <div class="col-12 d-flex justify-content-center p-4">
+    There is no blogs for now
+  </div>
+</div>
+<div class="row" *ngIf="blogsList.length > 0">
+  <div class="col-12" *ngFor="let blog of blogsOnPage">
+    <app-blog
+      [blog]="blog"
+      [isList]="true"
+      (onDeleteBlog)="deleteBlog($event)"
+    ></app-blog>
+  </div>
+  <div class="col-12 d-flex justify-content-center mt-3">
+    <jw-pagination
+      [items]="blogsList"
+      (changePage)="onChangePage($event)"
+    ></jw-pagination>
+  </div>
+</div>

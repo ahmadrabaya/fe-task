@@ -1,0 +1,254 @@
+<div class="row bg-primary text-light">
+  <div class="col-2">
+    <h1 class="p-2 mb-0 pointer" routerLink="/">FE-task</h1>
+  </div>
+  <div
+    class="col-10 d-flex justify-content-end align-items-center flex-row pr-5"
+    *ngIf="isLoggedIn"
+  >
+    <div class="p-2 pointer" routerLink="/profile">{{ user.name }}</div>
+    /
+    <div class="p-2 pointer" (click)="logout()">Logout</div>
+  </div>
+  <div
+    class="col-10 d-flex justify-content-end align-items-center flex-row pr-5"
+    *ngIf="!isLoggedIn"
+  >
+    <div class="p-2 pointer" data-toggle="modal" data-target="#loginModal">
+      login
+    </div>
+    /
+    <div class="p-2 pointer" data-toggle="modal" data-target="#registerModal">register</div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body pb-5">
+        <div class="row">
+          <div
+            class="col-12 mt-4 mb-4 d-flex justify-content-center align-items-center"
+          >
+            <i class="fa fa-user-circle"></i>
+          </div>
+          <div class="col-12">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="form-group">
+                <label>User name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="username"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      isLoginFormSubmitted && loginFormControls.username.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isLoginFormSubmitted && loginFormControls.username.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="loginFormControls.username.errors?.required">
+                    User name is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      isLoginFormSubmitted && loginFormControls.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="isLoginFormSubmitted && loginFormControls.password"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="loginFormControls.password.errors?.required">
+                    Password is required.
+                  </div>
+                  <div *ngIf="loginFormControls.password.errors?.minlength">
+                    Password should be more than six characters.
+                  </div>
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary form-control"
+                [ngClass]="isLoading && 'loading'"
+                [disabled]="isLoading"
+              >
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="registerModal"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body pb-5">
+        <div class="row">
+          <div
+            class="col-12 mt-4 mb-4 d-flex justify-content-center align-items-center"
+          >
+            <i class="fa fa-user-circle"></i>
+          </div>
+          <div class="col-12">
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+              <div class="form-group">
+                <label>Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                    isRegisterFormSubmitted && registerFormControls.name.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                  isRegisterFormSubmitted && registerFormControls.name.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="registerFormControls.name.errors?.required">
+                    Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Avatar URL</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="avatar"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                    isRegisterFormSubmitted && registerFormControls.avatar.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                  isRegisterFormSubmitted && registerFormControls.avatar.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="registerFormControls.avatar.errors?.required">
+                    Avatar is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>User name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="username"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                    isRegisterFormSubmitted && registerFormControls.username.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                  isRegisterFormSubmitted && registerFormControls.username.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="registerFormControls.username.errors?.required">
+                    User name is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                    isRegisterFormSubmitted && registerFormControls.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="isRegisterFormSubmitted && registerFormControls.password"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="registerFormControls.password.errors?.required">
+                    Password is required.
+                  </div>
+                  <div *ngIf="registerFormControls.password.errors?.minlength">
+                    Password should be more than six characters.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Confirm password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="confirmPassword"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                    isRegisterFormSubmitted && registerFormControls.confirmPassword.errors
+                  }"
+                />
+                <div
+                  *ngIf="isRegisterFormSubmitted && registerFormControls.confirmPassword"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="registerFormControls.confirmPassword.errors?.required">
+                    Confirm password is required.
+                  </div>
+                  <div *ngIf="registerFormControls.confirmPassword.errors?.confirmPassword">
+                    Passwords should be matched
+                  </div>
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary form-control"
+                [ngClass]="isLoading && 'loading'"
+                [disabled]="isLoading"
+              >
+                Register
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

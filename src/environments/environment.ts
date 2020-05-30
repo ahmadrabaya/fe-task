@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // paseURL: 'http://localhost:3000/'
+  paseURL: 'https://fe-task-ahmad.herokuapp.com/'
 };
 
 /*

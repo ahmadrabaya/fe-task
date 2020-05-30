@@ -1,0 +1,15 @@
+.avatar {
+  width: 50px;
+}
+
+.comments-wrapper {
+  border-radius: 5px;
+  padding: 15px;
+}
+.comment {
+  background-color: #e4e4e4;
+  border-radius: 5px;
+}
+.comment-avatar {
+  width: 25px;
+}

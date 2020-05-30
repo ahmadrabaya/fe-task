@@ -1,0 +1,41 @@
+.avatar {
+  width: 50px;
+  height: 50px;
+}
+.blog-image {
+  width: 700px;
+  border-radius: 5px;
+}
+.description {
+  max-width: 700px;
+}
+i.active {
+  color: red;
+}
+
+.comments-wrapper {
+  border-radius: 5px;
+  padding: 15px;
+}
+.comment {
+  background-color: #e4e4e4;
+  border-radius: 5px;
+}
+.comment-avatar {
+  width: 25px;
+  height: 25px;
+}
+
+.short-desc {
+  max-height: 100px;
+  overflow: hidden;
+}
+.blog-wrapper {
+  min-width: 700px;
+}
+.tag {
+  padding: 1px 5px;
+  margin: 5px;
+  background-color: lightgray;
+  border-radius: 5px;
+}

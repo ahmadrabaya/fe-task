@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+i {
+  color: gainsboro;
+}
+.loading {
+  cursor: progress;
+}
+.pointer {
+    cursor: pointer;
+}
+.tox-notifications-container{
+  display: none !important;
+}
